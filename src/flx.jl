@@ -133,10 +133,22 @@ function create()
 
   content = readdir("$(flxdir)/FlaxSamples/$(tmp)")
 
+  ntmp = @match template begin
+    "None" => ""
+    "Basic" => "BasicTemplate"
+    "FPS" => "FirstPersonShooter"
+    "TPS" => "ThirdPersonShooter"
+    "Particles" => "ParticlesFeaturesTour"
+    "Physics" => "PhysicsFeaturesTour"
+    "Graphics" => "GraphicsFeaturesTour"
+    "Materials" => "MaterialsFeaturesTour"
+    _ => nothing
+  end
+
   for file in content
     run(`cp -R $(flxdir)/FlaxSamples/$(tmp)/$(file) $(dir)`)
   end
-  run(`mv $(dir)/$(tmp).flaxproj $(dir)/$(dir).flaxproj`)
+  run(`mv $(dir)/$(ntmp).flaxproj $(dir)/$(dir).flaxproj`)
   println("Done. Run your project with 'FlaxEditor -project $dir'.")
 end
 
